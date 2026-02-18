@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://snhpqacjao3i"]
+
+[ext_resource type="Texture2D" uid="uid://cgde4dn5g8arw" path="res://assets/sprites/Sprite-0001.png" id="1_igli2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tuyoq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_igli2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fjrip"]
+radius = 6.0
+
+[node name="Player" type="CharacterBody2D" unique_id=135654152]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1569746200]
+position = Vector2(0, -4)
+scale = Vector2(1, 1.03125)
+sprite_frames = SubResource("SpriteFrames_tuyoq")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.6700312
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2045186368]
+position = Vector2(1, -2)
+shape = SubResource("CircleShape2D_fjrip")
