@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dksspxior4viq"]
+
+[ext_resource type="Script" uid="uid://urwvhptm5o5o" path="res://assets/scripts/dummy.gd" id="1_0j1vb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d26o0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0j1vb"]
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=861871383]
+script = ExtResource("1_0j1vb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=10302426]
+shape = SubResource("RectangleShape2D_d26o0")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1861116254]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=2050187848]
+shape = SubResource("RectangleShape2D_0j1vb")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1057769169]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.33333334, 1, 0.5254902, 1)
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurtbox_area_entered"]
