@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
 const SPEED = 100.0
-@onready var attack_area = $AttackArea
-@onready var attack_shape = $AttackArea/CollisionShape2D
-@onready var debug_rect = $AttackArea/ColorRect # Make sure the name matches exactly!
+@onready var attack_area = $FlipRoot/AttackArea
+@onready var attack_shape = $FlipRoot/AttackArea/CollisionShape2D
+@onready var debug_rect = $FlipRoot/AttackArea/ColorRect
+@onready var flip_root = $FlipRoot
 
 var can_attack = true
 var attack_cooldown = 0.5 # Seconds
@@ -13,6 +14,13 @@ func _physics_process(_delta: float) -> void:
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	velocity = direction * SPEED if direction != Vector2.ZERO else velocity.move_toward(Vector2.ZERO, SPEED)
 	move_and_slide()
+	
+	# Turn
+	var directionAX := Input.get_axis("ui_left", "ui_right")
+	if directionAX > 0:
+		flip_root.scale.x = 1
+	elif directionAX < 0:
+		flip_root.scale.x = -1
 
 	# Attack Input
 	if Input.is_action_just_pressed("ui_accept") and can_attack:

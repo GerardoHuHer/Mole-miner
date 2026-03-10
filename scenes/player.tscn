@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://0llrwxm4rlh5" path="res://assets/sprites/Sprite-0002.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bbrlcuf5uba4x" path="res://assets/scripts/Player2.gd" id="1_g2els"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_fjrip"]
+radius = 6.0
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_tuyoq"]
 animations = [{
 "frames": [{
@@ -14,16 +17,19 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fjrip"]
-radius = 6.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(20, 12)
 
 [node name="Player" type="CharacterBody2D" unique_id=135654152]
 script = ExtResource("1_g2els")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1569746200]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2045186368]
+position = Vector2(1, -2)
+shape = SubResource("CircleShape2D_fjrip")
+
+[node name="FlipRoot" type="Node2D" parent="." unique_id=1998429995]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="FlipRoot" unique_id=1569746200]
 position = Vector2(0, -4)
 scale = Vector2(1, 1.03125)
 sprite_frames = SubResource("SpriteFrames_tuyoq")
@@ -31,23 +37,18 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.6700312
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2045186368]
-position = Vector2(1, -2)
-shape = SubResource("CircleShape2D_fjrip")
+[node name="AttackArea" type="Area2D" parent="FlipRoot" unique_id=78754180]
+position = Vector2(13, -2)
 
-[node name="AttackArea" type="Area2D" parent="." unique_id=78754180]
-position = Vector2(41, 13)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1164443279]
-position = Vector2(-25, -14)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FlipRoot/AttackArea" unique_id=1164443279]
 shape = SubResource("RectangleShape2D_3vyb7")
 disabled = true
 debug_color = Color(0, 0.6, 0.69803923, 0.84313726)
 
-[node name="ColorRect" type="ColorRect" parent="AttackArea" unique_id=857043270]
+[node name="ColorRect" type="ColorRect" parent="FlipRoot/AttackArea" unique_id=857043270]
 visible = false
-offset_left = -35.0
-offset_top = -20.0
-offset_right = -15.0
-offset_bottom = -8.0
+offset_left = -10.0
+offset_top = -6.0
+offset_right = 10.0
+offset_bottom = 6.0
 color = Color(1, 0, 0, 0.4392157)
