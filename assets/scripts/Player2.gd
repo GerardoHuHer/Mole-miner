@@ -5,9 +5,11 @@ const SPEED = 100.0
 @onready var attack_shape = $FlipRoot/AttackArea/CollisionShape2D
 @onready var debug_rect = $FlipRoot/AttackArea/ColorRect
 @onready var flip_root = $FlipRoot
+@onready var anim_player = $FlipRoot/AnimationPlayer
 
 var can_attack = true
-var attack_cooldown = 0.5 # Seconds
+var attack_duration = 0.3
+var attack_cooldown = 0.2 # Seconds
 
 func _physics_process(_delta: float) -> void:
 	# Movement code
@@ -24,6 +26,9 @@ func _physics_process(_delta: float) -> void:
 
 	# Attack Input
 	if Input.is_action_just_pressed("ui_accept") and can_attack:
+		if not anim_player.is_playing():
+			anim_player.play("Swing")
+		
 		perform_attack()
 
 func perform_attack():
@@ -33,13 +38,13 @@ func perform_attack():
 	attack_shape.set_deferred("disabled", false)
 	
 	# Enable Visuals (The ColorRect)
-	debug_rect.show() 
+	#debug_rect.show() 
 	
 	# Increase this to 0.3s just to CONFIRM you can see it
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(attack_duration).timeout
 	
 	# Disable everything
-	debug_rect.hide()
+	#debug_rect.hide()
 	attack_shape.set_deferred("disabled", true)
 	
 	# Cooldown

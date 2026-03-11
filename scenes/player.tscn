@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://0llrwxm4rlh5" path="res://assets/sprites/Sprite-0002.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bbrlcuf5uba4x" path="res://assets/scripts/Player2.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://bbtdwh77rapgf" path="res://assets/sprites/SwordEX.png" id="3_qhqgy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fjrip"]
 radius = 6.0
@@ -17,6 +18,78 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_dqkch"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qhqgy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_qlg0r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordPivotPoint:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwordPivotPoint:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_g2els"]
+resource_name = "Swing"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordPivotPoint:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.528834763354282, 0.5235987755982988]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwordPivotPoint:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qhqgy"]
+_data = {
+&"RESET": SubResource("Animation_qlg0r"),
+&"Swing": SubResource("Animation_g2els")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(20, 12)
 
@@ -29,7 +102,7 @@ shape = SubResource("CircleShape2D_fjrip")
 
 [node name="FlipRoot" type="Node2D" parent="." unique_id=1998429995]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="FlipRoot" unique_id=1569746200]
+[node name="MoleSprite" type="AnimatedSprite2D" parent="FlipRoot" unique_id=1569746200]
 position = Vector2(0, -4)
 scale = Vector2(1, 1.03125)
 sprite_frames = SubResource("SpriteFrames_tuyoq")
@@ -37,10 +110,24 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.6700312
 
+[node name="SwordPivotPoint" type="Node2D" parent="FlipRoot" unique_id=192174167]
+visible = false
+position = Vector2(6, -1)
+
+[node name="Sword" type="AnimatedSprite2D" parent="FlipRoot/SwordPivotPoint" unique_id=463213924]
+position = Vector2(7.000004, 0)
+rotation = 2.3265238
+scale = Vector2(0.012, 0.012)
+sprite_frames = SubResource("SpriteFrames_dqkch")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FlipRoot" unique_id=1018179355]
+libraries/ = SubResource("AnimationLibrary_qhqgy")
+
 [node name="AttackArea" type="Area2D" parent="FlipRoot" unique_id=78754180]
 position = Vector2(13, -2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FlipRoot/AttackArea" unique_id=1164443279]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_3vyb7")
 disabled = true
 debug_color = Color(0, 0.6, 0.69803923, 0.84313726)
