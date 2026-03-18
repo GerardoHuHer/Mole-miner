@@ -1,6 +1,30 @@
 [gd_scene format=3 uid="uid://ch0wipqx8h6ri"]
 
 [ext_resource type="Script" uid="uid://c6p51m5ux5ccm" path="res://assets/scripts/enemy.gd" id="1_3gvst"]
+[ext_resource type="Texture2D" uid="uid://c5gj7m8g3j2gy" path="res://assets/sprites/gusano_mov_1.png" id="2_5wwv6"]
+[ext_resource type="Texture2D" uid="uid://drjroes6dp258" path="res://assets/sprites/gusano_mov_2.png" id="3_1vja8"]
+[ext_resource type="Texture2D" uid="uid://kpmi782vrooq" path="res://assets/sprites/gusano_mov_3.png" id="4_iwav8"]
+[ext_resource type="Texture2D" uid="uid://d37bssku27yed" path="res://assets/sprites/gusano_mov_4.png" id="5_1i2q2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ly5gv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5wwv6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1vja8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_iwav8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1i2q2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0j1vb"]
 
@@ -10,6 +34,8 @@
 script = ExtResource("1_3gvst")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1892155010]
+sprite_frames = SubResource("SpriteFrames_ly5gv")
+frame_progress = 0.98272604
 
 [node name="HurtBox" type="Area2D" parent="AnimatedSprite2D" unique_id=1861116254]
 
@@ -18,12 +44,5 @@ shape = SubResource("RectangleShape2D_0j1vb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=10302426]
 shape = SubResource("RectangleShape2D_d26o0")
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1057769169]
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-color = Color(0.33333334, 1, 0.5254902, 1)
 
 [connection signal="area_entered" from="AnimatedSprite2D/HurtBox" to="." method="_on_hurtbox_area_entered"]
