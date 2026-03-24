@@ -1,15 +1,17 @@
 extends CharacterBody2D
 
 const SPEED = 100.0
-@onready var attack_area = $FlipRoot/AttackArea
-@onready var attack_shape = $FlipRoot/AttackArea/CollisionShape2D
-@onready var debug_rect = $FlipRoot/AttackArea/ColorRect
+@onready var attack_area = $FlipRoot/PlayerAttackArea
+@onready var attack_shape = $FlipRoot/PlayerAttackArea/CollisionShape2D
+@onready var debug_rect = $FlipRoot/PlayerAttackArea/ColorRect
 @onready var flip_root = $FlipRoot
 @onready var anim_player = $FlipRoot/AnimationPlayer
 
 var can_attack = true
 var attack_duration = 0.3
 var attack_cooldown = 0.2 # Seconds
+
+var health = 3
 
 func _physics_process(_delta: float) -> void:
 	# Movement code
@@ -52,3 +54,25 @@ func perform_attack():
 	can_attack = true
 	
 	print("ATTACKED")
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	# Check if the thing hitting us is an attack
+	if area.name == "AttackArea":
+		take_damage(1)
+
+func take_damage(amount):
+	health -= amount
+	print("Ouch! Health left: ", health)
+	
+	# Visual Feedback (Turn red)
+	modulate = Color.RED
+	
+	if health <= 0:
+		die()
+	else:
+		# Reset color after 0.1s
+		await get_tree().create_timer(0.1).timeout
+		modulate = Color.WHITE
+
+func die():
+	queue_free()

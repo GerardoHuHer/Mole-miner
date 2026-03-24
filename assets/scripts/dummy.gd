@@ -4,7 +4,7 @@ var health = 3
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	# Check if the thing hitting us is an attack
-	if area.name == "AttackArea":
+	if area.name == "PlayerAttackArea":
 		take_damage(1)
 
 func take_damage(amount):

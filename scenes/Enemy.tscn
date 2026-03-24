@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://drjroes6dp258" path="res://assets/sprites/gusano_mov_2.png" id="3_1vja8"]
 [ext_resource type="Texture2D" uid="uid://kpmi782vrooq" path="res://assets/sprites/gusano_mov_3.png" id="4_iwav8"]
 [ext_resource type="Texture2D" uid="uid://d37bssku27yed" path="res://assets/sprites/gusano_mov_4.png" id="5_1i2q2"]
+[ext_resource type="Texture2D" uid="uid://bbtdwh77rapgf" path="res://assets/sprites/SwordEX.png" id="6_1vja8"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ly5gv"]
 animations = [{
@@ -28,6 +29,83 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0j1vb"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_5wwv6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iwav8"]
+size = Vector2(20, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1i2q2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_1vja8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_1vja8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordPivotPoint:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwordPivotPoint:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_iwav8"]
+resource_name = "Swing"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordPivotPoint:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.5235987755982988, 0.5235987755982988]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwordPivotPoint:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1i2q2"]
+_data = {
+&"RESET": SubResource("Animation_1vja8"),
+&"Swing": SubResource("Animation_iwav8")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d26o0"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1362427195]
@@ -37,12 +115,50 @@ script = ExtResource("1_3gvst")
 sprite_frames = SubResource("SpriteFrames_ly5gv")
 frame_progress = 0.98272604
 
-[node name="HurtBox" type="Area2D" parent="AnimatedSprite2D" unique_id=1861116254]
+[node name="FlipRoot" type="Node2D" parent="AnimatedSprite2D" unique_id=170032344]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/HurtBox" unique_id=2050187848]
+[node name="HurtBox" type="Area2D" parent="AnimatedSprite2D/FlipRoot" unique_id=1861116254]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/FlipRoot/HurtBox" unique_id=2050187848]
 shape = SubResource("RectangleShape2D_0j1vb")
+
+[node name="AttackTrigger" type="Area2D" parent="AnimatedSprite2D/FlipRoot" unique_id=1620615879]
+position = Vector2(14, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/FlipRoot/AttackTrigger" unique_id=609335963]
+shape = SubResource("CircleShape2D_5wwv6")
+
+[node name="AttackArea" type="Area2D" parent="AnimatedSprite2D/FlipRoot" unique_id=818681266]
+position = Vector2(13, -2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/FlipRoot/AttackArea" unique_id=433206497]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_iwav8")
+disabled = true
+debug_color = Color(0, 0.6, 0.69803923, 0.84313726)
+
+[node name="ColorRect" type="ColorRect" parent="AnimatedSprite2D/FlipRoot/AttackArea" unique_id=1641861953]
+visible = false
+offset_left = -10.0
+offset_top = -6.0
+offset_right = 10.0
+offset_bottom = 6.0
+color = Color(1, 0, 0, 0.4392157)
+
+[node name="SwordPivotPoint" type="Node2D" parent="AnimatedSprite2D/FlipRoot" unique_id=648040684]
+position = Vector2(6, -1)
+
+[node name="Sword" type="AnimatedSprite2D" parent="AnimatedSprite2D/FlipRoot/SwordPivotPoint" unique_id=1958871024]
+position = Vector2(7.000004, 0)
+rotation = 2.3265238
+scale = Vector2(0.012, 0.012)
+sprite_frames = SubResource("SpriteFrames_1i2q2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D/FlipRoot" unique_id=727462796]
+libraries/ = SubResource("AnimationLibrary_1i2q2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=10302426]
 shape = SubResource("RectangleShape2D_d26o0")
 
-[connection signal="area_entered" from="AnimatedSprite2D/HurtBox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="area_entered" from="AnimatedSprite2D/FlipRoot/HurtBox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="area_entered" from="AnimatedSprite2D/FlipRoot/AttackTrigger" to="." method="_on_attack_trigger_entered"]
