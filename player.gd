@@ -42,6 +42,10 @@ func perform_attack() -> void:
 	can_attack = false
 	attack_shape.set_deferred("disabled", false)
 
+	# Visual feedback: flash yellow and scale up briefly
+	modulate = Color.YELLOW
+	sprite.scale = Vector2(1.3, 1.3)
+
 	# Wait one physics frame so the collision shape registers overlaps
 	await get_tree().physics_frame
 
@@ -52,6 +56,10 @@ func perform_attack() -> void:
 
 	await get_tree().create_timer(attack_duration).timeout
 	attack_shape.set_deferred("disabled", true)
+
+	# Reset visual
+	modulate = Color.WHITE
+	sprite.scale = Vector2(1.0, 1.03125)
 
 	await get_tree().create_timer(attack_cooldown).timeout
 	can_attack = true
