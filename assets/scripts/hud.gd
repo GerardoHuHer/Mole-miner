@@ -4,6 +4,10 @@ extends CanvasLayer
 @onready var enemy_count_label: Label = $EnemyCountLabel
 @onready var health_label: Label = $HealthLabel
 @onready var wave_announcement: Label = $WaveAnnouncement
+@onready var play_again_button: Button = $PlayAgainButton
+
+func _ready() -> void:
+	play_again_button.pressed.connect(_on_play_again_pressed)
 
 func update_wave(wave_number: int) -> void:
 	wave_label.text = "Wave: " + str(wave_number)
@@ -29,4 +33,11 @@ func show_victory() -> void:
 	show_announcement("All Waves Cleared!")
 
 func show_game_over() -> void:
-	show_announcement("Game Over!")
+	wave_announcement.text = "Game Over!"
+	wave_announcement.visible = true
+	wave_announcement.modulate.a = 1.0
+	play_again_button.visible = true
+
+func _on_play_again_pressed() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
