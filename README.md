@@ -22,4 +22,4 @@ Para ejecutar este proyecto es necesario tener instalado:
 1. Clonar este repositorio:
 
 ```bash
-git clone 
+git clone https://github.com/GerardoHuHer/Mole-miner.git
