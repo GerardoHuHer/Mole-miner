@@ -23,3 +23,10 @@ Para ejecutar este proyecto es necesario tener instalado:
 
 ```bash
 git clone https://github.com/GerardoHuHer/Mole-miner.git
+
+Abrir Godot Engine.
+Seleccionar la opción Import.
+Buscar la carpeta del proyecto clonado y seleccionar el archivo:
+project.godot
+Importar el proyecto y abrirlo.
+Ejecutar el proyecto presionando el botón Run dentro de Godot.
