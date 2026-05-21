@@ -3,35 +3,82 @@
 [ext_resource type="Script" path="res://assets/scripts/hud.gd" id="1_hud"]
 [ext_resource type="FontFile" uid="uid://md63synpmf2y" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_font"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.04, 0.04, 0.12, 0.78)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_overlay"]
+bg_color = Color(0.0, 0.0, 0.0, 0.72)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gameover"]
+bg_color = Color(0.06, 0.02, 0.06, 0.96)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 36.0
+content_margin_top = 28.0
+content_margin_right = 36.0
+content_margin_bottom = 28.0
+
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hud")
 
-[node name="WaveLabel" type="Label" parent="."]
+[node name="TopBar" type="HBoxContainer" parent="."]
+anchor_right = 1.0
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 200.0
-offset_bottom = 30.0
-theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 16
-text = "Wave: 0"
+offset_right = -10.0
+offset_bottom = 74.0
+theme_override_constants/separation = 10
 
-[node name="EnemyCountLabel" type="Label" parent="."]
-offset_left = 10.0
-offset_top = 30.0
-offset_right = 200.0
-offset_bottom = 50.0
+[node name="HPPanel" type="PanelContainer" parent="TopBar"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="HPContainer" type="VBoxContainer" parent="TopBar/HPPanel"]
+theme_override_constants/separation = 2
+
+[node name="HPTitleLabel" type="Label" parent="TopBar/HPPanel/HPContainer"]
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 0.85)
+text = "HEALTH"
+
+[node name="HeartsLabel" type="Label" parent="TopBar/HPPanel/HPContainer"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1.0, 0.18, 0.18, 1.0)
+text = "♥ ♥ ♥ ♥ ♥"
+
+[node name="Spacer" type="Control" parent="TopBar"]
+size_flags_horizontal = 3
+
+[node name="WavePanel" type="PanelContainer" parent="TopBar"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="WaveContainer" type="VBoxContainer" parent="TopBar/WavePanel"]
+theme_override_constants/separation = 2
+
+[node name="WaveLabel" type="Label" parent="TopBar/WavePanel/WaveContainer"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(1.0, 0.88, 0.18, 1.0)
+text = "Wave: - / 5"
+horizontal_alignment = 2
+
+[node name="EnemyCountLabel" type="Label" parent="TopBar/WavePanel/WaveContainer"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.88, 0.88, 0.88, 1.0)
 text = "Enemies: 0"
-
-[node name="HealthLabel" type="Label" parent="."]
-offset_left = 10.0
-offset_top = 50.0
-offset_right = 200.0
-offset_bottom = 70.0
-theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 16
-text = "HP: 5"
+horizontal_alignment = 2
 
 [node name="WaveAnnouncement" type="Label" parent="."]
 visible = false
@@ -40,20 +87,30 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -40.0
-offset_right = 100.0
-offset_bottom = -10.0
+offset_left = -160.0
+offset_top = -55.0
+offset_right = 160.0
+offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 0.2, 1)
+pivot_offset = Vector2(160.0, 40.0)
+theme_override_colors/font_color = Color(1.0, 0.92, 0.1, 1.0)
+theme_override_colors/font_outline_color = Color(0.0, 0.0, 0.0, 1.0)
+theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 42
 text = "Wave 1!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayAgainButton" type="Button" parent="."]
+[node name="DimOverlay" type="ColorRect" parent="."]
+visible = false
+process_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.0, 0.0, 0.0, 0.65)
+
+[node name="GameOverPanel" type="PanelContainer" parent="."]
 visible = false
 process_mode = 3
 anchors_preset = 8
@@ -61,12 +118,31 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = 10.0
-offset_right = 60.0
-offset_bottom = 40.0
+offset_left = -140.0
+offset_top = -96.0
+offset_right = 140.0
+offset_bottom = 96.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gameover")
+
+[node name="GameOverContent" type="VBoxContainer" parent="GameOverPanel"]
+alignment = 1
+theme_override_constants/separation = 20
+
+[node name="GameOverTitle" type="Label" parent="GameOverPanel/GameOverContent"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 34
+theme_override_colors/font_color = Color(1.0, 0.18, 0.08, 1.0)
+theme_override_colors/font_outline_color = Color(0.0, 0.0, 0.0, 1.0)
+theme_override_constants/outline_size = 2
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="GameOverPanel/GameOverContent"]
+process_mode = 3
+custom_minimum_size = Vector2(180.0, 38.0)
+size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 16
 text = "Play Again"
