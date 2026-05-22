@@ -57,6 +57,24 @@ theme_override_font_sizes/font_size = 22
 theme_override_colors/font_color = Color(1.0, 0.18, 0.18, 1.0)
 text = "♥ ♥ ♥ ♥ ♥"
 
+[node name="ScorePanel" type="PanelContainer" parent="TopBar"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="ScoreContainer" type="VBoxContainer" parent="TopBar/ScorePanel"]
+theme_override_constants/separation = 2
+
+[node name="ScoreTitleLabel" type="Label" parent="TopBar/ScorePanel/ScoreContainer"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 0.85)
+text = "SCORE"
+
+[node name="ScoreLabel" type="Label" parent="TopBar/ScorePanel/ScoreContainer"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(1.0, 0.85, 0.0, 1.0)
+text = "Score: 0"
+
 [node name="Spacer" type="Control" parent="TopBar"]
 size_flags_horizontal = 3
 
@@ -118,31 +136,329 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -140.0
-offset_top = -96.0
-offset_right = 140.0
-offset_bottom = 96.0
+offset_left = -155.0
+offset_top = -120.0
+offset_right = 155.0
+offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gameover")
 
 [node name="GameOverContent" type="VBoxContainer" parent="GameOverPanel"]
 alignment = 1
-theme_override_constants/separation = 20
+theme_override_constants/separation = 14
 
 [node name="GameOverTitle" type="Label" parent="GameOverPanel/GameOverContent"]
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 30
 theme_override_colors/font_color = Color(1.0, 0.18, 0.08, 1.0)
 theme_override_colors/font_outline_color = Color(0.0, 0.0, 0.0, 1.0)
 theme_override_constants/outline_size = 2
-text = "GAME OVER"
+text = "HAS MUERTO"
+horizontal_alignment = 1
+
+[node name="ScoreDisplayLabel" type="Label" parent="GameOverPanel/GameOverContent"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1.0, 0.85, 0.0, 1.0)
+text = "Puntos: 0"
 horizontal_alignment = 1
 
 [node name="PlayAgainButton" type="Button" parent="GameOverPanel/GameOverContent"]
 process_mode = 3
-custom_minimum_size = Vector2(180.0, 38.0)
+custom_minimum_size = Vector2(190.0, 38.0)
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+text = "Volver a comenzar"
+
+[node name="QuitButton" type="Button" parent="GameOverPanel/GameOverContent"]
+process_mode = 3
+custom_minimum_size = Vector2(190.0, 38.0)
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+text = "Salir del juego"
+
+[node name="VictoryPanel" type="PanelContainer" parent="."]
+visible = false
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -140.0
+offset_right = 165.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gameover")
+
+[node name="VictoryContent" type="VBoxContainer" parent="VictoryPanel"]
+alignment = 1
+theme_override_constants/separation = 14
+
+[node name="VictoryTitle" type="Label" parent="VictoryPanel/VictoryContent"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.2, 1.0, 0.45, 1.0)
+theme_override_colors/font_outline_color = Color(0.0, 0.0, 0.0, 1.0)
+theme_override_constants/outline_size = 2
+text = "VICTORIA!"
+horizontal_alignment = 1
+
+[node name="VictoryScoreLabel" type="Label" parent="VictoryPanel/VictoryContent"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1.0, 0.85, 0.0, 1.0)
+text = "Puntos finales: 0"
+horizontal_alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="VictoryPanel/VictoryContent"]
+process_mode = 3
+custom_minimum_size = Vector2(190.0, 38.0)
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+text = "Volver a comenzar"
+
+[node name="CreditsButton" type="Button" parent="VictoryPanel/VictoryContent"]
+process_mode = 3
+custom_minimum_size = Vector2(190.0, 38.0)
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+text = "Créditos"
+
+[node name="QuitButton" type="Button" parent="VictoryPanel/VictoryContent"]
+process_mode = 3
+custom_minimum_size = Vector2(190.0, 38.0)
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+text = "Salir del juego"
+
+[node name="PausePanel" type="PanelContainer" parent="."]
+visible = false
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -145.0
+offset_right = 155.0
+offset_bottom = 145.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gameover")
+
+[node name="PauseContent" type="VBoxContainer" parent="PausePanel"]
+alignment = 1
+theme_override_constants/separation = 14
+
+[node name="PauseTitle" type="Label" parent="PausePanel/PauseContent"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(0.9, 0.9, 1.0, 1.0)
+theme_override_colors/font_outline_color = Color(0.0, 0.0, 0.0, 1.0)
+theme_override_constants/outline_size = 2
+text = "PAUSA"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PausePanel/PauseContent"]
+process_mode = 3
+custom_minimum_size = Vector2(200.0, 38.0)
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+text = "Seguir jugando"
+
+[node name="OptionsButton" type="Button" parent="PausePanel/PauseContent"]
+process_mode = 3
+custom_minimum_size = Vector2(200.0, 38.0)
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+text = "Opciones"
+
+[node name="HowToPlayButton" type="Button" parent="PausePanel/PauseContent"]
+process_mode = 3
+custom_minimum_size = Vector2(200.0, 38.0)
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+text = "Cómo jugar"
+
+[node name="QuitButton" type="Button" parent="PausePanel/PauseContent"]
+process_mode = 3
+custom_minimum_size = Vector2(200.0, 38.0)
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+text = "Salir del juego"
+
+[node name="OptionsPanel" type="PanelContainer" parent="."]
+visible = false
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -185.0
+offset_top = -175.0
+offset_right = 185.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gameover")
+
+[node name="OptionsContent" type="VBoxContainer" parent="OptionsPanel"]
+alignment = 1
+theme_override_constants/separation = 10
+
+[node name="OptionsTitle" type="Label" parent="OptionsPanel/OptionsContent"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.9, 0.9, 1.0, 1.0)
+text = "OPCIONES"
+horizontal_alignment = 1
+
+[node name="MasterVolumeLabel" type="Label" parent="OptionsPanel/OptionsContent"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1.0)
+text = "Volumen Master"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="OptionsPanel/OptionsContent"]
+process_mode = 3
+custom_minimum_size = Vector2(240.0, 24.0)
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MusicVolumeLabel" type="Label" parent="OptionsPanel/OptionsContent"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1.0)
+text = "Volumen Música"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="OptionsPanel/OptionsContent"]
+process_mode = 3
+custom_minimum_size = Vector2(240.0, 24.0)
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SFXVolumeLabel" type="Label" parent="OptionsPanel/OptionsContent"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1.0)
+text = "Volumen Efectos"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="OptionsPanel/OptionsContent"]
+process_mode = 3
+custom_minimum_size = Vector2(240.0, 24.0)
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="BackButton" type="Button" parent="OptionsPanel/OptionsContent"]
+process_mode = 3
+custom_minimum_size = Vector2(200.0, 38.0)
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+text = "Regresar"
+
+[node name="HowToPlayPanel" type="PanelContainer" parent="."]
+visible = false
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -185.0
+offset_right = 230.0
+offset_bottom = 185.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gameover")
+
+[node name="HowToPlayContent" type="VBoxContainer" parent="HowToPlayPanel"]
+alignment = 1
+theme_override_constants/separation = 12
+
+[node name="HowToPlayTitle" type="Label" parent="HowToPlayPanel/HowToPlayContent"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.9, 0.9, 1.0, 1.0)
+text = "CÓMO JUGAR"
+horizontal_alignment = 1
+
+[node name="InstructionsLabel" type="Label" parent="HowToPlayPanel/HowToPlayContent"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1.0)
+text = "Movimiento:  W A S D  /  Flechas\nAtaque / Pico:  Barra Espaciadora\n\nObjetivo: Sobrevive a todas las oleadas,\nderrota enemigos y recolecta oro en la mina.\n\nPuntuación:\n  +100 pts  por enemigo eliminado\n  +50 pts   por oro recolectado / picado"
+autowrap_mode = 3
+horizontal_alignment = 0
+
+[node name="BackButton" type="Button" parent="HowToPlayPanel/HowToPlayContent"]
+process_mode = 3
+custom_minimum_size = Vector2(200.0, 38.0)
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+text = "Regresar"
+
+[node name="CreditsPanel" type="PanelContainer" parent="."]
+visible = false
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -185.0
+offset_top = -175.0
+offset_right = 185.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gameover")
+
+[node name="CreditsContent" type="VBoxContainer" parent="CreditsPanel"]
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="CreditsTitle" type="Label" parent="CreditsPanel/CreditsContent"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1.0, 0.85, 0.0, 1.0)
+text = "CRÉDITOS"
+horizontal_alignment = 1
+
+[node name="NamesLabel" type="Label" parent="CreditsPanel/CreditsContent"]
+theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 16
-text = "Play Again"
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1.0)
+text = "Alejandro Villafaña\nGerardo Huerta\nIntegrante 3\nIntegrante 4"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="CreditsPanel/CreditsContent"]
+process_mode = 3
+custom_minimum_size = Vector2(200.0, 38.0)
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 15
+text = "Regresar"
