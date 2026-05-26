@@ -4,6 +4,7 @@ signal wave_started(wave_number: int)
 signal wave_completed(wave_number: int)
 signal all_waves_completed
 signal enemy_count_changed(count: int)
+signal enemy_killed  # Emitida cada vez que un enemigo muere (usada para sumar score)
 
 @export var enemy_scene: PackedScene
 @export var spawn_points: Array = []
@@ -71,6 +72,7 @@ func _spawn_enemy() -> void:
 func _on_enemy_died() -> void:
 	enemies_alive -= 1
 	enemy_count_changed.emit(enemies_alive)
+	enemy_killed.emit()  # Notifica al game_manager para sumar score
 
 	if enemies_alive <= 0 and not is_spawning:
 		wave_active = false
