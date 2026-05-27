@@ -11,9 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://uqsrwl5nomx6" path="res://assets/sprites/roca.png" id="7_kvuet"]
 [ext_resource type="Script" uid="uid://cr7mclc5el67e" path="res://assets/scripts/wave_manager.gd" id="8_wavem"]
 [ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="9_enemy"]
-[ext_resource type="PackedScene" path="res://scenes/worm_enemy.tscn" id="12_worm"]
 [ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="10_hud"]
 [ext_resource type="Script" uid="uid://v8unjh6g8g1v" path="res://assets/scripts/game_manager.gd" id="11_gmgr"]
+[ext_resource type="PackedScene" path="res://scenes/worm_enemy.tscn" id="12_worm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dinhu"]
 texture = ExtResource("1_iywne")
