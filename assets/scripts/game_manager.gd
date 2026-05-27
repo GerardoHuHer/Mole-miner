@@ -3,11 +3,16 @@ extends Node2D
 @onready var player: CharacterBody2D = $Player
 @onready var wave_manager: Node = $WaveManager
 @onready var hud: CanvasLayer = $HUD
+@onready var music_player = $MusicPlayer
 
 var score: int = 0
 var is_paused: bool = false
 # Evita que pausa se active en pantallas de game over / victoria
 var game_active: bool = true
+
+# Songs to use
+const INTER_MUSIC = preload("res://assets/music/Inter.mp3")
+const BATTLE_MUSIC = preload("res://assets/music/Combate.mp3")
 
 func _ready() -> void:
 	# Necesario para recibir _unhandled_input incluso cuando el árbol está pausado
@@ -52,8 +57,10 @@ func _toggle_pause() -> void:
 	get_tree().paused = is_paused
 	if is_paused:
 		hud.show_pause()
+		play_music(INTER_MUSIC)
 	else:
 		hud.hide_pause()
+		play_music(BATTLE_MUSIC)
 
 
 # Suma puntos y actualiza el HUD. Llámalo desde cualquier fuente de score:
@@ -68,6 +75,7 @@ func add_score(points: int) -> void:
 
 func _on_wave_started(wave_number: int) -> void:
 	hud.update_wave(wave_number)
+	play_music(BATTLE_MUSIC)
 
 func _on_wave_completed(_wave_number: int) -> void:
 	pass
@@ -93,3 +101,10 @@ func _on_player_died() -> void:
 	game_active = false
 	hud.show_game_over(score)
 	get_tree().paused = true
+
+# Music Funcs
+func play_music(new_stream: AudioStream):
+	# Only change the music if it's not already playing
+	if music_player.stream != new_stream:
+		music_player.stream = new_stream
+		music_player.play()

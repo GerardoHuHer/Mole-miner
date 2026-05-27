@@ -2803,20 +2803,22 @@ limit_right = 425
 limit_bottom = 146
 position_smoothing_enabled = true
 
-[node name="WaveManager" type="Node" parent="."]
+[node name="WaveManager" type="Node" parent="." unique_id=1587916431]
 script = ExtResource("8_wavem")
 enemy_scene = ExtResource("9_enemy")
 
-[node name="SpawnPoint1" type="Marker2D" parent="."]
+[node name="SpawnPoint1" type="Marker2D" parent="." unique_id=1840181371]
 position = Vector2(175, -75)
 
-[node name="SpawnPoint2" type="Marker2D" parent="."]
+[node name="SpawnPoint2" type="Marker2D" parent="." unique_id=298979086]
 position = Vector2(100, 0)
 
-[node name="SpawnPoint3" type="Marker2D" parent="."]
+[node name="SpawnPoint3" type="Marker2D" parent="." unique_id=332423492]
 position = Vector2(280, 0)
 
-[node name="SpawnPoint4" type="Marker2D" parent="."]
+[node name="SpawnPoint4" type="Marker2D" parent="." unique_id=1209541815]
 position = Vector2(175, 60)
 
-[node name="HUD" parent="." instance=ExtResource("10_hud")]
+[node name="HUD" parent="." unique_id=106338250 instance=ExtResource("10_hud")]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1686530193]
