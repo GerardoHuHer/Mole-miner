@@ -88,7 +88,7 @@ func _draw() -> void:
 	_draw_torch(w * 0.08, h * 0.50, _t + 0.0)
 	_draw_torch(w * 0.92, h * 0.50, _t + 1.7)
 
-func _tile_color(row, col, total_rows, grass_end, dirt_end, gravel_end) -> Color:
+func _tile_color(row: int, col: int, total_rows, grass_end, dirt_end, gravel_end) -> Color:
 	var ha := row * 7919 + col * 3119
 	var hb := row * 1031 + col * 5237
 	var hc := row * 2657 + col * 7523

@@ -49,6 +49,10 @@ const TOTAL_WAVES := 5
 @onready var credits_panel: PanelContainer          = $CreditsPanel
 @onready var credits_back_button: Button            = $CreditsPanel/CreditsContent/BackButton
 
+# ---- Music -----
+const BATTLE_MUSIC = preload("res://assets/music/Combate.mp3")
+@onready var music_player = $"../MusicPlayer"
+
 
 func _ready() -> void:
 	# Game Over
@@ -181,6 +185,7 @@ func _on_quit_pressed() -> void:
 # ===== Botones — Pausa =====
 
 func _on_resume_pressed() -> void:
+	play_music(BATTLE_MUSIC)
 	hide_pause()
 	get_tree().paused = false
 
@@ -231,3 +236,11 @@ func _on_victory_credits_pressed() -> void:
 func _on_credits_back_pressed() -> void:
 	credits_panel.visible = false
 	victory_panel.visible = true
+
+
+# ===== music funcs ==========
+func play_music(new_stream: AudioStream):
+	# Only change the music if it's not already playing
+	if music_player.stream != new_stream:
+		music_player.stream = new_stream
+		music_player.play()
