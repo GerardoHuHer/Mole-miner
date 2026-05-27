@@ -2,58 +2,6 @@
 
 [ext_resource type="Script" uid="uid://c4mainmenugd1" path="res://assets/scripts/main_menu.gd" id="1_menu"]
 
-; ── Estilo Minecraft: botón normal (gris piedra) ──────────────────────────────
-[sub_resource type="StyleBoxFlat" id="s_norm"]
-content_margin_left = 20.0
-content_margin_top = 10.0
-content_margin_right = 20.0
-content_margin_bottom = 10.0
-bg_color = Color(0.424, 0.424, 0.424, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.200, 0.200, 0.200, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-; ── Estilo Minecraft: botón hover (azul-gris claro) ──────────────────────────
-[sub_resource type="StyleBoxFlat" id="s_hovr"]
-content_margin_left = 20.0
-content_margin_top = 10.0
-content_margin_right = 20.0
-content_margin_bottom = 10.0
-bg_color = Color(0.557, 0.557, 0.776, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.200, 0.200, 0.200, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-; ── Estilo Minecraft: botón presionado (gris oscuro) ─────────────────────────
-[sub_resource type="StyleBoxFlat" id="s_pres"]
-content_margin_left = 20.0
-content_margin_top = 10.0
-content_margin_right = 20.0
-content_margin_bottom = 10.0
-bg_color = Color(0.251, 0.251, 0.251, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.150, 0.150, 0.150, 1)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-
-; ── Panel central (estilo inventario Minecraft) ───────────────────────────────
 [sub_resource type="StyleBoxFlat" id="s_panel"]
 content_margin_left = 18.0
 content_margin_top = 18.0
@@ -64,23 +12,56 @@ border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.380, 0.380, 0.420, 0.90)
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
+border_color = Color(0.38, 0.38, 0.42, 0.9)
 
-; ── Escena principal ──────────────────────────────────────────────────────────
-[node name="MainMenu" type="Control"]
+[sub_resource type="StyleBoxFlat" id="s_norm"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.424, 0.424, 0.424, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="StyleBoxFlat" id="s_pres"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.251, 0.251, 0.251, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.15, 0.15, 0.15, 1)
+
+[sub_resource type="StyleBoxFlat" id="s_hovr"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.557, 0.557, 0.776, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="MainMenu" type="Control" unique_id=1640145994]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_menu")
 
-; ── Panel central estilo inventario Minecraft ────────────────────────────────
-[node name="UIPanel" type="Panel" parent="."]
+[node name="UIPanel" type="Panel" parent="." unique_id=609266435]
 layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -91,72 +72,62 @@ offset_right = 258.0
 offset_bottom = 220.0
 theme_override_styles/panel = SubResource("s_panel")
 
-; ── Contenedor central ───────────────────────────────────────────────────────
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1776332280]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-layout_mode = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1688803148]
 custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
 theme_override_constants/separation = 16
 
-; ── Título "MoleMiners" estilo Minecraft (amarillo + sombra) ─────────────────
-[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=105515483]
 layout_mode = 2
-text = "MoleMiners"
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 72
-theme_override_colors/font_color = Color(1.0, 1.0, 0.0, 1.0)
-theme_override_colors/font_shadow_color = Color(0.39, 0.39, 0.0, 1.0)
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.39, 0.39, 0, 1)
 theme_override_constants/shadow_offset_x = 4
 theme_override_constants/shadow_offset_y = 4
+theme_override_font_sizes/font_size = 72
+text = "MoleMiners"
+horizontal_alignment = 1
 
-; ── Separador visual ─────────────────────────────────────────────────────────
-[node name="Spacer" type="Control" parent="CenterContainer/VBoxContainer"]
-layout_mode = 2
+[node name="Spacer" type="Control" parent="CenterContainer/VBoxContainer" unique_id=224835189]
 custom_minimum_size = Vector2(0, 18)
-
-; ── Botón "Jugar" ─────────────────────────────────────────────────────────────
-[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1734167018]
 custom_minimum_size = Vector2(420, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("s_norm")
+theme_override_styles/pressed = SubResource("s_pres")
+theme_override_styles/hover = SubResource("s_hovr")
+theme_override_styles/focus = SubResource("s_norm")
 text = "Jugar"
-theme_override_font_sizes/font_size = 24
-theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1.0)
-theme_override_colors/font_shadow_color = Color(0.3, 0.3, 0.3, 1.0)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_styles/normal = SubResource("s_norm")
-theme_override_styles/hover = SubResource("s_hovr")
-theme_override_styles/pressed = SubResource("s_pres")
-theme_override_styles/focus = SubResource("s_norm")
 
-; ── Separador entre botones ──────────────────────────────────────────────────
-[node name="Spacer2" type="Control" parent="CenterContainer/VBoxContainer"]
-layout_mode = 2
+[node name="Spacer2" type="Control" parent="CenterContainer/VBoxContainer" unique_id=1668987112]
 custom_minimum_size = Vector2(0, 4)
-
-; ── Botón "Salir" ─────────────────────────────────────────────────────────────
-[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-custom_minimum_size = Vector2(420, 52)
-text = "Salir"
-theme_override_font_sizes/font_size = 24
-theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1.0)
-theme_override_colors/font_shadow_color = Color(0.3, 0.3, 0.3, 1.0)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_styles/normal = SubResource("s_norm")
-theme_override_styles/hover = SubResource("s_hovr")
-theme_override_styles/pressed = SubResource("s_pres")
-theme_override_styles/focus = SubResource("s_norm")
 
-; ── Etiqueta de versión (esquina inferior derecha) ───────────────────────────
-[node name="VersionLabel" type="Label" parent="."]
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1418302081]
+custom_minimum_size = Vector2(420, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("s_norm")
+theme_override_styles/pressed = SubResource("s_pres")
+theme_override_styles/hover = SubResource("s_hovr")
+theme_override_styles/focus = SubResource("s_norm")
+text = "Salir"
+
+[node name="VersionLabel" type="Label" parent="." unique_id=1696843429]
 layout_mode = 1
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -165,6 +136,8 @@ offset_left = -140.0
 offset_top = -30.0
 offset_right = -10.0
 offset_bottom = -6.0
-text = "MoleMiners  v1.0"
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1.0)
+text = "MoleMiners  v1.0"
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1546515900]

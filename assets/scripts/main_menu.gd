@@ -4,6 +4,9 @@ extends Control
 #  MoleMiners — Menú principal  (fondo de mina estilo Minecraft)
 # ─────────────────────────────────────────────────────────────────────────────
 
+const MENU_MUSIC = preload("res://assets/music/MainMenu.mp3")
+@onready var music_player = $MusicPlayer
+
 const TILE := 32
 
 # ── Colores de capas de terreno ───────────────────────────────────────────────
@@ -56,6 +59,7 @@ var _t := 0.0  # Tiempo para animación de llama
 
 # ─────────────────────────────────────────────────────────────────────────────
 func _ready() -> void:
+	play_music(MENU_MUSIC)
 	queue_redraw()
 	modulate.a = 0.0
 	var tw := create_tween()
@@ -103,7 +107,7 @@ func _draw() -> void:
 # ─────────────────────────────────────────────────────────────────────────────
 #  COLOR DE CADA TILE
 # ─────────────────────────────────────────────────────────────────────────────
-func _tile_color(row, col, total_rows, grass_end, dirt_end, gravel_end) -> Color:
+func _tile_color(row: int, col: int, total_rows, grass_end, dirt_end, gravel_end) -> Color:
 	var ha := row * 7919 + col * 3119
 	var hb := row * 1031 + col * 5237
 	var hc := row * 2657 + col * 7523
@@ -203,6 +207,7 @@ func _draw_torch(x: float, y: float, phase: float) -> void:
 #  NAVEGACIÓN
 # ─────────────────────────────────────────────────────────────────────────────
 func _on_start_pressed() -> void:
+	music_player.stop()
 	var tw := create_tween()
 	tw.tween_property(self, "modulate:a", 0.0, 0.3)
 	await tw.finished
@@ -213,3 +218,10 @@ func _on_quit_pressed() -> void:
 	tw.tween_property(self, "modulate:a", 0.0, 0.3)
 	await tw.finished
 	get_tree().quit()
+	
+# Music Funcs
+func play_music(new_stream: AudioStream):
+	# Only change the music if it's not already playing
+	if music_player.stream != new_stream:
+		music_player.stream = new_stream
+		music_player.play()
