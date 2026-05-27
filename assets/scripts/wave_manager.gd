@@ -32,14 +32,14 @@ func _start_next_wave() -> void:
 	wave_active = true
 	wave_started.emit(current_wave)
 
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(1.5, false).timeout
 	_spawn_wave(wave_definitions[current_wave - 1])
 
 func _spawn_wave(enemy_count: int) -> void:
 	is_spawning = true
 	for i in range(enemy_count):
 		_spawn_enemy()
-		await get_tree().create_timer(time_between_spawns).timeout
+		await get_tree().create_timer(time_between_spawns, false).timeout
 	is_spawning = false
 
 func _spawn_enemy() -> void:
@@ -77,5 +77,5 @@ func _on_enemy_died() -> void:
 	if enemies_alive <= 0 and not is_spawning:
 		wave_active = false
 		wave_completed.emit(current_wave)
-		await get_tree().create_timer(time_between_waves).timeout
+		await get_tree().create_timer(time_between_waves, false).timeout
 		_start_next_wave()

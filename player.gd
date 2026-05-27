@@ -17,6 +17,11 @@ var facing_right: bool = true
 var swing_pivot: Node2D
 
 func _ready() -> void:
+	# PAUSABLE: el jugador no debe procesar input ni movimiento mientras el juego esté pausado.
+	# Necesario porque game_manager.gd usa PROCESS_MODE_ALWAYS para recibir el input de pausa,
+	# y todos los hijos heredarían ese modo sin esta línea.
+	process_mode = Node.PROCESS_MODE_PAUSABLE
+
 	add_to_group("Player")
 	attack_shape.disabled = true
 	_create_swing_visual()
