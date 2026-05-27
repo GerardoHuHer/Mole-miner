@@ -7,8 +7,20 @@ extends Node2D
 
 var score: int = 0
 var is_paused: bool = false
-# Evita que pausa se active en pantallas de game over / victoria
-var game_active: bool = true
+var game_active: bool = true  # Evita que pausa se active en game over / victoria
+
+# ----- Sistema de oro -----
+const GOLD_SCENE := preload("res://scenes/gold_nugget.tscn")
+# Cuadrícula 3×2 = 6 pepitas distribuidas uniformemente por el mapa
+const GOLD_GRID_COLS  := 3
+const GOLD_GRID_ROWS  := 2
+const GOLD_X_MIN      := 50.0   # límites del área jugable
+const GOLD_X_MAX      := 380.0
+const GOLD_Y_MIN      := -65.0
+const GOLD_Y_MAX      :=  65.0
+const GOLD_JITTER     := 20.0   # ±px de variación dentro de cada celda
+
+var _spawned_gold: Array = []
 
 # Songs to use
 const INTER_MUSIC = preload("res://assets/music/Inter.mp3")
@@ -24,7 +36,9 @@ func _ready() -> void:
 	wave_manager.wave_completed.connect(_on_wave_completed)
 	wave_manager.all_waves_completed.connect(_on_all_waves_completed)
 	wave_manager.enemy_count_changed.connect(_on_enemy_count_changed)
-	wave_manager.enemy_killed.connect(_on_enemy_killed)  # Para sumar score
+	wave_manager.enemy_killed.connect(_on_enemy_killed)
+	wave_manager.gold_phase_started.connect(_on_gold_phase_started)
+	wave_manager.gold_phase_ended.connect(_on_gold_phase_ended)
 
 	# Señales del jugador
 	player.health_changed.connect(_on_player_health_changed)
@@ -80,6 +94,46 @@ func _on_wave_started(wave_number: int) -> void:
 
 func _on_wave_completed(_wave_number: int) -> void:
 	pass
+
+# ----- Fase de recolección de oro -----
+
+func _on_gold_phase_started(duration: float) -> void:
+	play_music(INTER_MUSIC)
+	_spawn_gold()
+	hud.show_gold_phase(duration)
+
+func _on_gold_phase_ended() -> void:
+	_despawn_gold()
+	hud.hide_gold_phase()
+
+func _spawn_gold() -> void:
+	_spawned_gold.clear()
+	var cell_w := (GOLD_X_MAX - GOLD_X_MIN) / GOLD_GRID_COLS
+	var cell_h := (GOLD_Y_MAX - GOLD_Y_MIN) / GOLD_GRID_ROWS
+
+	for row in range(GOLD_GRID_ROWS):
+		for col in range(GOLD_GRID_COLS):
+			# Centro de la celda + jitter para que no queden en cuadrícula perfecta
+			var cx := GOLD_X_MIN + col * cell_w + cell_w * 0.5
+			var cy := GOLD_Y_MIN + row * cell_h + cell_h * 0.5
+			var nugget = GOLD_SCENE.instantiate()
+			nugget.position = Vector2(
+				cx + randf_range(-GOLD_JITTER, GOLD_JITTER),
+				cy + randf_range(-GOLD_JITTER, GOLD_JITTER)
+			)
+			# string-based connect: evita error de tipado (instantiate devuelve Node)
+			nugget.connect("collected", func(points: int) -> void:
+				_spawned_gold.erase(nugget)
+				add_score(points)
+			)
+			add_child(nugget)
+			_spawned_gold.append(nugget)
+
+func _despawn_gold() -> void:
+	for nugget in _spawned_gold:
+		if is_instance_valid(nugget):
+			nugget.queue_free()
+	_spawned_gold.clear()
 
 func _on_all_waves_completed() -> void:
 	game_active = false

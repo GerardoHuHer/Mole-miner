@@ -4,7 +4,9 @@ signal wave_started(wave_number: int)
 signal wave_completed(wave_number: int)
 signal all_waves_completed
 signal enemy_count_changed(count: int)
-signal enemy_killed  # Emitida cada vez que un enemigo muere (usada para sumar score)
+signal enemy_killed            # Para sumar score por enemigo eliminado
+signal gold_phase_started(duration: float)  # Emitida al iniciar fase de recolección
+signal gold_phase_ended                     # Emitida al terminar fase de recolección
 
 @export var enemy_scene: PackedScene   # Slimes — oleadas 1, 3, 5
 @export var worm_scene: PackedScene    # Gusanos — oleadas 2, 4
@@ -80,10 +82,23 @@ func _spawn_enemy() -> void:
 func _on_enemy_died() -> void:
 	enemies_alive -= 1
 	enemy_count_changed.emit(enemies_alive)
-	enemy_killed.emit()  # Notifica al game_manager para sumar score
+	enemy_killed.emit()
 
 	if enemies_alive <= 0 and not is_spawning:
 		wave_active = false
 		wave_completed.emit(current_wave)
+
+		# Fase de recolección de oro entre oleadas (no aplica después de la última)
+		if current_wave < wave_definitions.size():
+			var gold_time := _get_gold_duration()
+			gold_phase_started.emit(gold_time)
+			await get_tree().create_timer(gold_time, false).timeout
+			gold_phase_ended.emit()
+
 		await get_tree().create_timer(time_between_waves, false).timeout
 		_start_next_wave()
+
+# Duración de la fase de oro: 8s tras oleada 1, -2s por cada oleada siguiente
+# Oleada 1→8s | 2→6s | 3→4s | 4→2s
+func _get_gold_duration() -> float:
+	return 8.0 - (current_wave - 1) * 2.0
