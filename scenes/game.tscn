@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://uqsrwl5nomx6" path="res://assets/sprites/roca.png" id="7_kvuet"]
 [ext_resource type="Script" uid="uid://cr7mclc5el67e" path="res://assets/scripts/wave_manager.gd" id="8_wavem"]
 [ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="9_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/worm_enemy.tscn" id="12_worm"]
 [ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="10_hud"]
 [ext_resource type="Script" uid="uid://v8unjh6g8g1v" path="res://assets/scripts/game_manager.gd" id="11_gmgr"]
 
@@ -2806,6 +2807,7 @@ position_smoothing_enabled = true
 [node name="WaveManager" type="Node" parent="." unique_id=1587916431]
 script = ExtResource("8_wavem")
 enemy_scene = ExtResource("9_enemy")
+worm_scene = ExtResource("12_worm")
 
 [node name="SpawnPoint1" type="Marker2D" parent="." unique_id=1840181371]
 position = Vector2(175, -75)
