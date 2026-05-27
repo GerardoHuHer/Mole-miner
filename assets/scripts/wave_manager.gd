@@ -98,7 +98,7 @@ func _on_enemy_died() -> void:
 		await get_tree().create_timer(time_between_waves, false).timeout
 		_start_next_wave()
 
-# Duración de la fase de oro: 10s tras oleada 1, -2s por cada oleada siguiente
-# Oleada 1→10s | 2→8s | 3→6s | 4→4s
+# Duración de la fase de oro: 8s tras oleada 1, -2s por cada oleada siguiente
+# Oleada 1→8s | 2→6s | 3→4s | 4→2s
 func _get_gold_duration() -> float:
-	return 10.0 - (current_wave - 1) * 2.0
+	return 8.0 - (current_wave - 1) * 2.0
