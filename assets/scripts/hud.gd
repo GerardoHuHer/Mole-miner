@@ -49,6 +49,13 @@ const TOTAL_WAVES := 5
 @onready var credits_panel: PanelContainer          = $CreditsPanel
 @onready var credits_back_button: Button            = $CreditsPanel/CreditsContent/BackButton
 
+# ---- Fase de oro ----
+@onready var gold_phase_panel: PanelContainer       = $GoldPhasePanel
+@onready var gold_label: Label                      = $GoldPhasePanel/GoldLabel
+
+var _gold_active: bool = false
+var _gold_time_left: float = 0.0
+
 # ---- Music -----
 const BATTLE_MUSIC = preload("res://assets/music/Combate.mp3")
 @onready var music_player = $"../MusicPlayer"
@@ -121,6 +128,37 @@ func update_health(health: int) -> void:
 
 func update_score(score: int) -> void:
 	score_label.text = "Score: %d" % score
+
+func _process(delta: float) -> void:
+	if not _gold_active:
+		return
+	# Pausa la cuenta mientras el juego esté pausado (el HUD corre en ALWAYS)
+	if get_tree().paused:
+		return
+	_gold_time_left -= delta
+	var secs := max(0, int(ceil(_gold_time_left)))
+	gold_label.text = "RECOGE EL ORO!  %ds" % secs
+	# Parpadeo rojo en los últimos 3 segundos
+	if _gold_time_left <= 3.0:
+		gold_label.modulate = Color(1.0, 0.25, 0.25) if fmod(_gold_time_left, 0.5) < 0.25 else Color(1.0, 0.88, 0.0)
+	else:
+		gold_label.modulate = Color(1.0, 0.88, 0.0)
+
+
+# ===== Fase de recolección de oro =====
+
+func show_gold_phase(duration: float) -> void:
+	_gold_time_left = duration
+	_gold_active = true
+	gold_label.modulate = Color(1.0, 0.88, 0.0)
+	gold_label.text = "RECOGE EL ORO!  %ds" % int(duration)
+	gold_phase_panel.visible = true
+	show_announcement("¡Recoge el oro!")
+
+func hide_gold_phase() -> void:
+	_gold_active = false
+	gold_phase_panel.visible = false
+
 
 func _flash_hearts() -> void:
 	var tween := create_tween()
