@@ -6,7 +6,8 @@ signal all_waves_completed
 signal enemy_count_changed(count: int)
 signal enemy_killed  # Emitida cada vez que un enemigo muere (usada para sumar score)
 
-@export var enemy_scene: PackedScene
+@export var enemy_scene: PackedScene   # Slimes — oleadas 1, 3, 5
+@export var worm_scene: PackedScene    # Gusanos — oleadas 2, 4
 @export var spawn_points: Array = []
 @export var time_between_waves: float = 3.0
 @export var time_between_spawns: float = 0.5
@@ -43,11 +44,18 @@ func _spawn_wave(enemy_count: int) -> void:
 	is_spawning = false
 
 func _spawn_enemy() -> void:
-	if enemy_scene == null:
+	# Oleadas pares (2, 4) → gusanos; oleadas impares (1, 3, 5) → slimes
+	var scene_to_use: PackedScene
+	if current_wave % 2 == 0 and worm_scene != null:
+		scene_to_use = worm_scene
+	else:
+		scene_to_use = enemy_scene
+
+	if scene_to_use == null:
 		print("WaveManager: No enemy scene assigned")
 		return
 
-	var enemy = enemy_scene.instantiate()
+	var enemy = scene_to_use.instantiate()
 
 	# Pick a random spawn point, or a random offset around the game area
 	if spawn_points.size() > 0:
