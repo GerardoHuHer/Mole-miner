@@ -211,7 +211,7 @@ func _on_start_pressed() -> void:
 	var tw := create_tween()
 	tw.tween_property(self, "modulate:a", 0.0, 0.3)
 	await tw.finished
-	get_tree().change_scene_to_file("res://scenes/game.tscn")
+	get_tree().change_scene_to_file("res://scenes/controls_screen.tscn")
 
 func _on_quit_pressed() -> void:
 	var tw := create_tween()

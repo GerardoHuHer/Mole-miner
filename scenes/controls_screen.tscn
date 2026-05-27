@@ -1,0 +1,367 @@
+[gd_scene format=3 uid="uid://c4controlssc1"]
+
+[ext_resource type="Script" uid="uid://c4controlsgd1" path="res://assets/scripts/controls_screen.gd" id="1_ctrl"]
+
+; ── Tecla decorativa (gris, borde oscuro) ─────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="s_key"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.718, 0.718, 0.718, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.220, 0.220, 0.220, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+; ── Panel central oscuro (estilo inventario Minecraft) ────────────────────────
+[sub_resource type="StyleBoxFlat" id="s_panel"]
+content_margin_left = 18.0
+content_margin_top = 18.0
+content_margin_right = 18.0
+content_margin_bottom = 18.0
+bg_color = Color(0.063, 0.063, 0.075, 0.88)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.380, 0.380, 0.420, 0.90)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+; ── Botón Empezar: normal ─────────────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="s_norm"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.424, 0.424, 0.424, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.200, 0.200, 0.200, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+; ── Botón Empezar: hover ──────────────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="s_hovr"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.557, 0.557, 0.776, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.200, 0.200, 0.200, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+; ── Botón Empezar: presionado ─────────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="s_pres"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.251, 0.251, 0.251, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.150, 0.150, 0.150, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+; ── Botón Volver: normal (más oscuro) ────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="s_back"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.251, 0.251, 0.251, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.150, 0.150, 0.150, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+; ── Botón Volver: hover ───────────────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="s_back_h"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.420, 0.420, 0.420, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.200, 0.200, 0.200, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+; ─────────────────────────────────────────────────────────────────────────────
+[node name="ControlsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_ctrl")
+
+; ── Panel oscuro centrado ─────────────────────────────────────────────────────
+[node name="UIPanel" type="Panel" parent="."]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -278.0
+offset_top = -232.0
+offset_right = 278.0
+offset_bottom = 232.0
+theme_override_styles/panel = SubResource("s_panel")
+
+; ── Contenedor central ────────────────────────────────────────────────────────
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(500, 0)
+theme_override_constants/separation = 12
+
+; ── Título ────────────────────────────────────────────────────────────────────
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "¿Cómo Jugar?"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 42
+theme_override_colors/font_color = Color(1.0, 1.0, 0.0, 1.0)
+theme_override_colors/font_shadow_color = Color(0.39, 0.39, 0.0, 1.0)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+
+[node name="HSep" type="HSeparator" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpacerTop" type="Control" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 6)
+
+; ── Secciones lado a lado ─────────────────────────────────────────────────────
+[node name="KeysSection" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 44
+
+; ══ SECCIÓN: MOVIMIENTO ══════════════════════════════════════════════════════
+[node name="MovSection" type="VBoxContainer" parent="CenterContainer/VBoxContainer/KeysSection"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MovTitle" type="Label" parent="CenterContainer/VBoxContainer/KeysSection/MovSection"]
+layout_mode = 2
+text = "MOVIMIENTO"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1.0)
+
+; Cuadrícula WASD (3 columnas)
+[node name="WASDGrid" type="GridContainer" parent="CenterContainer/VBoxContainer/KeysSection/MovSection"]
+layout_mode = 2
+columns = 3
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+
+; Fila 1: [ ][W][ ]
+[node name="Empty1" type="Control" parent="CenterContainer/VBoxContainer/KeysSection/MovSection/WASDGrid"]
+layout_mode = 2
+custom_minimum_size = Vector2(50, 50)
+
+[node name="KeyW" type="Button" parent="CenterContainer/VBoxContainer/KeysSection/MovSection/WASDGrid"]
+layout_mode = 2
+custom_minimum_size = Vector2(50, 50)
+focus_mode = 0
+mouse_filter = 2
+text = "W"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.10, 0.10, 0.10, 1.0)
+theme_override_styles/normal   = SubResource("s_key")
+theme_override_styles/hover    = SubResource("s_key")
+theme_override_styles/pressed  = SubResource("s_key")
+theme_override_styles/focus    = SubResource("s_key")
+theme_override_styles/disabled = SubResource("s_key")
+
+[node name="Empty2" type="Control" parent="CenterContainer/VBoxContainer/KeysSection/MovSection/WASDGrid"]
+layout_mode = 2
+custom_minimum_size = Vector2(50, 50)
+
+; Fila 2: [A][S][D]
+[node name="KeyA" type="Button" parent="CenterContainer/VBoxContainer/KeysSection/MovSection/WASDGrid"]
+layout_mode = 2
+custom_minimum_size = Vector2(50, 50)
+focus_mode = 0
+mouse_filter = 2
+text = "A"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.10, 0.10, 0.10, 1.0)
+theme_override_styles/normal   = SubResource("s_key")
+theme_override_styles/hover    = SubResource("s_key")
+theme_override_styles/pressed  = SubResource("s_key")
+theme_override_styles/focus    = SubResource("s_key")
+theme_override_styles/disabled = SubResource("s_key")
+
+[node name="KeyS" type="Button" parent="CenterContainer/VBoxContainer/KeysSection/MovSection/WASDGrid"]
+layout_mode = 2
+custom_minimum_size = Vector2(50, 50)
+focus_mode = 0
+mouse_filter = 2
+text = "S"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.10, 0.10, 0.10, 1.0)
+theme_override_styles/normal   = SubResource("s_key")
+theme_override_styles/hover    = SubResource("s_key")
+theme_override_styles/pressed  = SubResource("s_key")
+theme_override_styles/focus    = SubResource("s_key")
+theme_override_styles/disabled = SubResource("s_key")
+
+[node name="KeyD" type="Button" parent="CenterContainer/VBoxContainer/KeysSection/MovSection/WASDGrid"]
+layout_mode = 2
+custom_minimum_size = Vector2(50, 50)
+focus_mode = 0
+mouse_filter = 2
+text = "D"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.10, 0.10, 0.10, 1.0)
+theme_override_styles/normal   = SubResource("s_key")
+theme_override_styles/hover    = SubResource("s_key")
+theme_override_styles/pressed  = SubResource("s_key")
+theme_override_styles/focus    = SubResource("s_key")
+theme_override_styles/disabled = SubResource("s_key")
+
+[node name="MovDesc" type="Label" parent="CenterContainer/VBoxContainer/KeysSection/MovSection"]
+layout_mode = 2
+text = "Mover al personaje"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.68, 0.68, 0.68, 1.0)
+
+; ══ SECCIÓN: COMBATE ══════════════════════════════════════════════════════════
+[node name="CombatSection" type="VBoxContainer" parent="CenterContainer/VBoxContainer/KeysSection"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CombatTitle" type="Label" parent="CenterContainer/VBoxContainer/KeysSection/CombatSection"]
+layout_mode = 2
+text = "COMBATE"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1.0)
+
+; Tecla Espacio (barra espaciadora ancha)
+[node name="KeySpace" type="Button" parent="CenterContainer/VBoxContainer/KeysSection/CombatSection"]
+layout_mode = 2
+custom_minimum_size = Vector2(168, 50)
+focus_mode = 0
+mouse_filter = 2
+text = "ESPACIO"
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.10, 0.10, 0.10, 1.0)
+theme_override_styles/normal   = SubResource("s_key")
+theme_override_styles/hover    = SubResource("s_key")
+theme_override_styles/pressed  = SubResource("s_key")
+theme_override_styles/focus    = SubResource("s_key")
+theme_override_styles/disabled = SubResource("s_key")
+
+; Segunda tecla de combate: flechas
+[node name="ArrowLabel" type="Label" parent="CenterContainer/VBoxContainer/KeysSection/CombatSection"]
+layout_mode = 2
+text = "ó Flechas ↑↓←→"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.60, 0.60, 0.60, 1.0)
+
+[node name="CombatDesc" type="Label" parent="CenterContainer/VBoxContainer/KeysSection/CombatSection"]
+layout_mode = 2
+text = "Atacar enemigos"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.68, 0.68, 0.68, 1.0)
+
+; ── Separador y botones ───────────────────────────────────────────────────────
+[node name="SpacerMid" type="Control" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 10)
+
+[node name="HSep2" type="HSeparator" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpacerBot" type="Control" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 8)
+
+; ── Botón principal: Empezar ──────────────────────────────────────────────────
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(500, 56)
+text = "▶   Empezar"
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1.0)
+theme_override_colors/font_shadow_color = Color(0.3, 0.3, 0.3, 1.0)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_styles/normal = SubResource("s_norm")
+theme_override_styles/hover  = SubResource("s_hovr")
+theme_override_styles/pressed = SubResource("s_pres")
+theme_override_styles/focus  = SubResource("s_norm")
+
+; ── Botón secundario: Volver ──────────────────────────────────────────────────
+[node name="BackButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(500, 38)
+text = "← Volver al Menú"
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.80, 0.80, 0.80, 1.0)
+theme_override_styles/normal = SubResource("s_back")
+theme_override_styles/hover  = SubResource("s_back_h")
+theme_override_styles/pressed = SubResource("s_back")
+theme_override_styles/focus  = SubResource("s_back")
+
+; ── Versión ───────────────────────────────────────────────────────────────────
+[node name="VersionLabel" type="Label" parent="."]
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -30.0
+offset_right = -10.0
+offset_bottom = -6.0
+text = "MoleMiners  v1.0"
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1.0)
