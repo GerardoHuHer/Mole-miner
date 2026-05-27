@@ -12,6 +12,11 @@ var can_attack: bool = true
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready():
+	# PAUSABLE: evita que el enemigo siga moviéndose cuando get_tree().paused = true.
+	# Sin esto, hereda PROCESS_MODE_ALWAYS del nodo raíz del GameManager y se mueve
+	# incluso durante la pausa.
+	process_mode = Node.PROCESS_MODE_PAUSABLE
+
 	add_to_group("Enemy")
 	player = get_tree().get_first_node_in_group("Player")
 	if player == null:
@@ -36,7 +41,8 @@ func _physics_process(_delta: float) -> void:
 		if player.has_method("take_damage"):
 			player.take_damage(damage)
 			can_attack = false
-			await get_tree().create_timer(attack_cooldown).timeout
+			# process_always = false → el timer se pausa junto con el juego
+			await get_tree().create_timer(attack_cooldown, false).timeout
 			can_attack = true
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
@@ -49,7 +55,7 @@ func take_damage(amount: int) -> void:
 	if health <= 0:
 		die()
 	else:
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.1, false).timeout
 		modulate = Color.WHITE
 
 func die() -> void:
