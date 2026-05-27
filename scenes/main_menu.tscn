@@ -53,6 +53,23 @@ corner_radius_top_right = 0
 corner_radius_bottom_right = 0
 corner_radius_bottom_left = 0
 
+; ── Panel central (estilo inventario Minecraft) ───────────────────────────────
+[sub_resource type="StyleBoxFlat" id="s_panel"]
+content_margin_left = 18.0
+content_margin_top = 18.0
+content_margin_right = 18.0
+content_margin_bottom = 18.0
+bg_color = Color(0.063, 0.063, 0.075, 0.82)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.380, 0.380, 0.420, 0.90)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
 ; ── Escena principal ──────────────────────────────────────────────────────────
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -61,18 +78,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_menu")
 
-; ── Panel semitransparente que enmarca el contenido central ──────────────────
+; ── Panel central estilo inventario Minecraft ────────────────────────────────
 [node name="UIPanel" type="Panel" parent="."]
 layout_mode = 1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -210.0
-offset_right = 250.0
-offset_bottom = 210.0
-self_modulate = Color(0, 0, 0, 0.55)
+offset_left = -258.0
+offset_top = -220.0
+offset_right = 258.0
+offset_bottom = 220.0
+theme_override_styles/panel = SubResource("s_panel")
 
 ; ── Contenedor central ───────────────────────────────────────────────────────
 [node name="CenterContainer" type="CenterContainer" parent="."]
