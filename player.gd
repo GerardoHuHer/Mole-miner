@@ -115,3 +115,14 @@ func take_damage(amount: int) -> void:
 	else:
 		await get_tree().create_timer(0.1).timeout
 		modulate = Color.WHITE
+
+func heal(amount: int) -> void:
+	# Adds health, but caps it at 5 (your max health limit)
+	health = min(health + amount, 5) 
+	health_changed.emit(health)
+	
+	# Optional visual feedback: flash the player green quickly for the heal!
+	var orig_color = modulate
+	modulate = Color.GREEN
+	await get_tree().create_timer(0.15).timeout
+	modulate = orig_color

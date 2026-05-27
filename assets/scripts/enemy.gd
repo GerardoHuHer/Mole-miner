@@ -60,4 +60,6 @@ func take_damage(amount: int) -> void:
 
 func die() -> void:
 	died.emit()
+	if player and is_instance_valid(player) and player.has_method("heal"):
+		player.heal(1)
 	queue_free()

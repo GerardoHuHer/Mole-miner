@@ -108,3 +108,11 @@ func play_music(new_stream: AudioStream):
 	if music_player.stream != new_stream:
 		music_player.stream = new_stream
 		music_player.play()
+		
+		# Connect the 'finished' signal so it loops when the song ends
+		if not music_player.finished.is_connected(_on_music_finished):
+			music_player.finished.connect(_on_music_finished)
+
+# Helper function: When the music finishes, play it again
+func _on_music_finished():
+	music_player.play()
