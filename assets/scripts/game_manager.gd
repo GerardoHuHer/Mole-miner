@@ -112,10 +112,12 @@ func _spawn_gold() -> void:
 			randf_range(GOLD_AREA_X_MIN, GOLD_AREA_X_MAX),
 			randf_range(GOLD_AREA_Y_MIN, GOLD_AREA_Y_MAX)
 		)
-		# Captura la referencia en el closure antes de añadirlo al árbol
-		var ref := nugget
-		nugget.collected.connect(func(points: int) -> void:
-			_spawned_gold.erase(ref)
+		# Conexión por nombre de string: evita el error de tipado ya que
+		# instantiate() devuelve Node y el checker no sabe que tiene "collected".
+		# En GDScript 4 los for-loops crean un binding por iteración, por lo que
+		# capturar `nugget` directamente es seguro.
+		nugget.connect("collected", func(points: int) -> void:
+			_spawned_gold.erase(nugget)
 			add_score(points)
 		)
 		add_child(nugget)

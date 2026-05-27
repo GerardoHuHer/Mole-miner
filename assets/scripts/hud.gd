@@ -136,7 +136,7 @@ func _process(delta: float) -> void:
 	if get_tree().paused:
 		return
 	_gold_time_left -= delta
-	var secs := max(0, int(ceil(_gold_time_left)))
+	var secs: int = maxi(0, ceili(_gold_time_left))
 	gold_label.text = "RECOGE EL ORO!  %ds" % secs
 	# Parpadeo rojo en los últimos 3 segundos
 	if _gold_time_left <= 3.0:
