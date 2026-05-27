@@ -207,10 +207,50 @@ func _draw_torch(x: float, y: float, phase: float) -> void:
 #  NAVEGACIÓN
 # ─────────────────────────────────────────────────────────────────────────────
 func _on_start_pressed() -> void:
+	# 1. Stop the menu music
 	music_player.stop()
+	
+	# 2. Fade out the main menu controls (buttons, title, background drawings)
 	var tw := create_tween()
 	tw.tween_property(self, "modulate:a", 0.0, 0.3)
 	await tw.finished
+	
+	# 3. Create a full-screen image dynamically
+	var splash_screen := TextureRect.new()
+	
+	# Load your JPEG image (Change this path to match your actual file!)
+	splash_screen.texture = load("res://assets/images/Story.jpeg")
+	
+	# Make it stretch nicely across the full screen
+	splash_screen.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	splash_screen.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	
+	# Lock it to full anchors so it fills any screen resolution
+	splash_screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	
+	# Start the image invisible so we can fade it in smoothly
+	splash_screen.modulate.a = 0.0
+	
+	# Add it to the scene tree
+	add_child(splash_screen)
+	
+	# 4. Bring back the main Control node's alpha so the image is visible
+	self.modulate.a = 1.0
+	
+	# 5. Fade the image in over 0.5 seconds
+	var fade_in := create_tween()
+	fade_in.tween_property(splash_screen, "modulate:a", 1.0, 0.5)
+	await fade_in.finished
+	
+	# 6. WAIT FOR 10 SECONDS
+	await get_tree().create_timer(10.0).timeout
+	
+	# 7. Optionally fade the image out before switching scenes (0.5 seconds)
+	var fade_out := create_tween()
+	fade_out.tween_property(splash_screen, "modulate:a", 0.0, 0.5)
+	await fade_out.finished
+	
+	# 8. Finally, switch to the game!
 	get_tree().change_scene_to_file("res://scenes/controls_screen.tscn")
 
 func _on_quit_pressed() -> void:
